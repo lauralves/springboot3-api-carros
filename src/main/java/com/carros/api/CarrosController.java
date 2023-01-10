@@ -1,5 +1,6 @@
 package com.carros.api;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +35,14 @@ public class CarrosController {
 		
 		return carro.isPresent() ? ResponseEntity.ok(carro.get()) : ResponseEntity.notFound().build();
 		
-		//return carro.map(c -> ResponseEntity.ok(c)).orElse(ResponseEntity.notFound().build());  UTILIZANDO LAMBDA EXPRESSION
+		 //return carro.map(c -> ResponseEntity.ok(c)).orElse(ResponseEntity.notFound().build());  UTILIZANDO LAMBDA EXPRESSION
  	}
 	
 	@GetMapping("/tipo/{tipo}")
-	public Iterable<Carro> getCarroByTipo(@PathVariable ("tipo") String tipo) {
-		return service.getCarroByTipo(tipo);
+	public ResponseEntity getCarroByTipo(@PathVariable ("tipo") String tipo) {
+		List<Carro> carros = service.getCarroByTipo(tipo);
+		
+		return carros.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(carros);
 	}
 	@PostMapping
 	public String post(@RequestBody Carro carro) {
