@@ -3,6 +3,7 @@ package com.carros.api;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,9 +29,13 @@ public class CarrosController {
 	}
 	
 	@GetMapping ("/{id}")
-	public Optional<Carro> get(@PathVariable ("id") Long id){
-		return service.getCarroById(id);
-	}
+	public ResponseEntity get(@PathVariable ("id") Long id){
+		Optional<Carro> carro = service.getCarroById(id);
+		
+		return carro.isPresent() ? ResponseEntity.ok(carro.get()) : ResponseEntity.notFound().build();
+		
+		//return carro.map(c -> ResponseEntity.ok(c)).orElse(ResponseEntity.notFound().build());  UTILIZANDO LAMBDA EXPRESSION
+ 	}
 	
 	@GetMapping("/tipo/{tipo}")
 	public Iterable<Carro> getCarroByTipo(@PathVariable ("tipo") String tipo) {
