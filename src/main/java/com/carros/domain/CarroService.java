@@ -53,13 +53,6 @@ public class CarroService {
 			rep.deleteById(id);
 		}
 	}
-	public List<Carro> getCarro(){
-		List<Carro> carros = new ArrayList<>();
-		
-		carros.add(new Carro(1L, "Fusca"));
-		carros.add(new Carro(2L,"Chevrolet"));
-		carros.add(new Carro(3L, "KKK"));
-		return carros;
-	}
+	
 	
 }
