@@ -37,11 +37,12 @@ public class CarroService {
 		return rep.findByTipo(tipo).stream().map(c-> CarroDTO.create(c)).collect(Collectors.toList());
 	}
 	
-	public Carro insert(Carro carro) {
-		return rep.save(carro);
+	public CarroDTO insert(Carro carro) {
+		Assert.isNull(carro.getId(), "Não foi possível inserir o registro");
+		return CarroDTO.create(rep.save(carro));
 	}
 	
-	public CarroDTO update(Carro carro, Long id) {
+	public Carro update(Carro carro, Long id) {
 		Assert.notNull(id, "Não foi possível atualizar o registro");
 		//busca o carro no db
 		Optional<Carro> carroId = rep.findById(id);
@@ -54,7 +55,7 @@ public class CarroService {
 			//atualiza o carro
 			
 			rep.save(db);
-			return CarroDTO.create(db);
+			return db;
 		} else {
 			throw new RuntimeException("Não foi possível atualizar o registro");
 		}	
