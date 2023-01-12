@@ -13,7 +13,6 @@ public class CarroDTO {
 	private String tipo;
 	
 	public CarroDTO() {
-		
 	}
 	
 	public CarroDTO(Carro c) {
