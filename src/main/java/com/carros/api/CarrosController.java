@@ -34,9 +34,9 @@ public class CarrosController {
 	
 	@GetMapping ("/{id}")
 	public ResponseEntity get(@PathVariable ("id") Long id){
-		Optional<CarroDTO> carro = service.getCarroById(id);
+		CarroDTO carro = service.getCarroById(id);
 		
-		return carro.isPresent() ? ResponseEntity.ok(carro.get()) : ResponseEntity.notFound().build();
+		return  ResponseEntity.ok(carro);
 		
 		 //return carro.map(c -> ResponseEntity.ok(c)).orElse(ResponseEntity.notFound().build());  UTILIZANDO LAMBDA EXPRESSION
  	}
@@ -49,13 +49,10 @@ public class CarrosController {
 	}
 	@PostMapping
 	public ResponseEntity post(@RequestBody Carro carro) {
-		try {
 			CarroDTO c = service.insert(carro);
 			URI location = getUri(c.getId());
 			return ResponseEntity.created(location).build();
-		} catch (Exception e) {
-			return ResponseEntity.badRequest().build();
-		}
+		
 	}
 	
 	private URI getUri(Long id) {
@@ -73,8 +70,8 @@ public class CarrosController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity delete(@PathVariable("id") Long id) {
-		boolean ok = service.delete(id);
+		 service.delete(id);
 		
-		return ok ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+		return ResponseEntity.ok().build();
 	}
 }

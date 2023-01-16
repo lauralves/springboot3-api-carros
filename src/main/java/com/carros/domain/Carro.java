@@ -1,14 +1,9 @@
 package com.carros.domain;
-
-
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 
 @Entity(name = "carro")
@@ -19,6 +14,11 @@ public class Carro {
 	private Long id;
 	
 	private String nome;
+	private String descricao;
+	private String urlFoto;
+	private String urlVideo;
+	private String latitude;
+	private String longitude;
 	private String tipo;
 	
 }
